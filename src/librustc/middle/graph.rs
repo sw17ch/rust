@@ -304,9 +304,9 @@ pub struct DepthFirstTraversal<'g, N:'g, E:'g> {
 }
 
 impl<'g, N, E> Iterator for DepthFirstTraversal<'g, N, E> {
-    type Item = &'g N;
+    type Item = NodeIndex;
 
-    fn next(&mut self) -> Option<&'g N> {
+    fn next(&mut self) -> Option<NodeIndex> {
         while let Some(idx) = self.stack.pop() {
             if !self.visited.insert(idx.node_id()) {
                 continue;
@@ -318,7 +318,7 @@ impl<'g, N, E> Iterator for DepthFirstTraversal<'g, N, E> {
                 true
             });
 
-            return Some(self.graph.node_data(idx));
+            return Some(idx);
         }
 
         return None;
